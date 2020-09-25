@@ -17,7 +17,7 @@ import data
 from model import GraphVAE
 from dataModel import GraphAdjSampler
 
-CUDA = 2
+CUDA = 0
 
 LR_milestones = [500, 1000]
 
