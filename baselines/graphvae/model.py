@@ -9,7 +9,7 @@ from torch import optim
 import torch.nn.functional as F
 import torch.nn.init as init
 
-import model
+import modelUtils
 
 
 class GraphVAE(nn.Module):
@@ -21,20 +21,20 @@ class GraphVAE(nn.Module):
             latent_dim: dimension of the latent representation of graph.
         '''
         super(GraphVAE, self).__init__()
-        self.conv1 = model.GraphConv(input_dim=input_dim, output_dim=hidden_dim)
+        self.conv1 = modelUtils.GraphConv(input_dim=input_dim, output_dim=hidden_dim)
         self.bn1 = nn.BatchNorm1d(input_dim)
-        self.conv2 = model.GraphConv(input_dim=hidden_dim, output_dim=hidden_dim)
+        self.conv2 = modelUtils.GraphConv(input_dim=hidden_dim, output_dim=hidden_dim)
         self.bn2 = nn.BatchNorm1d(input_dim)
         self.act = nn.ReLU()
 
         output_dim = max_num_nodes * (max_num_nodes + 1) // 2
-        #self.vae = model.MLP_VAE_plain(hidden_dim, latent_dim, output_dim)
-        self.vae = model.MLP_VAE_plain(input_dim * input_dim, latent_dim, output_dim)
-        #self.feature_mlp = model.MLP_plain(latent_dim, latent_dim, output_dim)
+        #self.vae = modelUtils.MLP_VAE_plain(hidden_dim, latent_dim, output_dim)
+        self.vae = modelUtils.MLP_VAE_plain(input_dim * input_dim, latent_dim, output_dim)
+        #self.feature_mlp = modelUtils.MLP_plain(latent_dim, latent_dim, output_dim)
 
         self.max_num_nodes = max_num_nodes
         for m in self.modules():
-            if isinstance(m, model.GraphConv):
+            if isinstance(m, modelUtils.GraphConv):
                 m.weight.data = init.xavier_uniform(m.weight.data, gain=nn.init.calculate_gain('relu'))
             elif isinstance(m, nn.BatchNorm1d):
                 m.weight.data.fill_(1)
