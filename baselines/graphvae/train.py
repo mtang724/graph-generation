@@ -14,8 +14,8 @@ from torch import optim
 from torch.optim.lr_scheduler import MultiStepLR
 
 import data
-from baselines.graphvae.model import GraphVAE
-from baselines.graphvae.data import GraphAdjSampler
+from model import GraphVAE
+from dataModel import GraphAdjSampler
 
 CUDA = 2
 
@@ -73,7 +73,7 @@ def arg_parse():
     parser.add_argument('--feature', dest='feature_type',
             help='Feature used for encoder. Can be: id, deg')
 
-    parser.set_defaults(dataset='grid',
+    parser.set_defaults(dataset='enzymes',
                         feature_type='id',
                         lr=0.001,
                         batch_size=1,
