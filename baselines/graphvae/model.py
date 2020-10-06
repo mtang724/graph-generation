@@ -161,7 +161,9 @@ class GraphVAE(nn.Module):
         adj_recon_loss = self.adj_recon_loss(adj_vectorized_var, out[0])
         print('recon: ', adj_recon_loss)
         print(adj_vectorized_var)
-        print('out': out[0])
+        print('out:', out[0])
+        print(adj)
+        print(recon_adj_tensor)
 
         loss_kl = -0.5 * torch.sum(1 + z_lsgms - z_mu.pow(2) - z_lsgms.exp())
         loss_kl /= self.max_num_nodes * self.max_num_nodes # normalize
