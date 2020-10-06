@@ -84,8 +84,8 @@ def arg_parse():
 def main():
     prog_args = arg_parse()
 
-    os.environ['CUDA_VISIBLE_DEVICES'] = str(CUDA)
-    print('CUDA', CUDA)
+    os.environ['CUDA_VISIBLE_DEVICES'] = str(0)
+    print('CUDA', 0)
     ### running log
 
     if prog_args.dataset == 'enzymes':
