@@ -73,11 +73,11 @@ def arg_parse():
     parser.add_argument('--feature', dest='feature_type',
             help='Feature used for encoder. Can be: id, deg')
 
-    parser.set_defaults(dataset='enzymes',
+    parser.set_defaults(dataset='grid',
                         feature_type='id',
                         lr=0.001,
                         batch_size=1,
-                        num_workers=1,
+                        num_workers=8,
                         max_num_nodes=-1)
     return parser.parse_args()
 
