@@ -161,7 +161,7 @@ class GraphVAE(nn.Module):
         adj_recon_loss = self.adj_recon_loss(adj_vectorized_var, out[0])
         print('recon: ', adj_recon_loss)
         print(adj_vectorized_var)
-        print(out[0])
+        print('out': out[0])
 
         loss_kl = -0.5 * torch.sum(1 + z_lsgms - z_mu.pow(2) - z_lsgms.exp())
         loss_kl /= self.max_num_nodes * self.max_num_nodes # normalize
@@ -188,7 +188,7 @@ class GraphVAE(nn.Module):
         init_assignment = torch.ones(self.max_num_nodes, self.max_num_nodes) * init_corr
         #init_assignment = torch.FloatTensor(4, 4)
         #init.uniform(init_assignment)
-        assignment = self.mpm(init_assignment, S)
+        assignmentkl = self.mpm(init_assignment, S)
         #print('Assignment: ', assignment)
 
         # matching
@@ -204,5 +204,5 @@ class GraphVAE(nn.Module):
         print('diff: ', adj_recon_loss)
 
     def adj_recon_loss(self, adj_truth, adj_pred):
-        return F.binary_cross_entropy(adj_truth.detach(), adj_pred)
+        return F.binary_cross_entropy(adj_truth.detach(), adj_pred.detach())
 
